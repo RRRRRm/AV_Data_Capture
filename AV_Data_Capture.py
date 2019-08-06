@@ -158,25 +158,24 @@ if __name__ =='__main__':
     set_directory()
     CreatFolder(output_dir+'/failed')
 
-    count = 0
     movies = movie_lists()
-    count_all = str(len(movies))
-    print('[+]Find ' + str(len(movies)) + ' movies.')
-    process_list=[]
-    for movie in movies: #遍历电影列表 交给core处理
-        num=getNumber(movie) # 获取番号
+    count = len(movies)
+    print("[+]Find " + str(len(movies)) + " movies.")
+    process_list = []
+    for movie in movies:  # 遍历电影列表 交给core处理
+        num = getNumber(movie)  # 获取番号
         if num is None:
-            movies.remove(movie) # 未获取到番号, 则将影片从列表移除
-            count_all=count_all-1
+            movies.remove(movie)  # 未获取到番号, 则将影片从列表移除
+            count = count - 1
             continue
         print("[!]Making Data for   [" + movie + "], the number is [" + num + "]")
-        process=RunCore(movie)
+        process = RunCore(movie)
         process_list.append(process)
     print("[*]=====================================")
     for i in range(len(movies)):
         process_list[i].communicate()
-        percentage = str((i+1)/int(count_all)*100)[:4]+'%'
-        print('[!] - '+percentage+' ['+str(count)+'/'+count_all+'] -')
+        percentage = str((i + 1) / int(count) * 100)[:4] + "%"
+        print("[!] - " + percentage + " [" + str(i) + "/" + str(count) + "] -")
         print("[!]The [" + getNumber(movies[i]) + "] process is done.")
     print("[*]=====================================")
         
